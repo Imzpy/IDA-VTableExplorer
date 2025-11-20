@@ -9,7 +9,6 @@ RUN apt-get update && apt-get install -y \
     git \
     make \
     wget \
-    mingw-w64 \
     libssl-dev \
     lzma-dev \
     libxml2-dev \
@@ -28,15 +27,6 @@ ENV PLATFORM=Linux
 RUN make && \
     mkdir -p /output && \
     cp release/*.so /output/vtable64-linux-x64.so
-
-# ============================================
-# Windows x64 build
-# ============================================
-FROM base AS windows-build
-ENV PLATFORM=Windows
-RUN make && \
-    mkdir -p /output && \
-    cp release/*.dll /output/vtable64-windows-x64.dll
 
 # ============================================
 # macOS osxcross - use pre-built image
@@ -82,7 +72,6 @@ RUN --mount=type=bind,from=osxcross,source=/osxcross,target=/osxcross \
 # ============================================
 FROM alpine:latest AS artifacts
 COPY --from=linux-build /output/vtable64-linux-x64.so /
-COPY --from=windows-build /output/vtable64-windows-x64.dll /
 COPY --from=macos-arm64-build /output/vtable64-macos-arm64.dylib /
 COPY --from=macos-x64-build /output/vtable64-macos-x64.dylib /
 CMD ["/bin/sh"]

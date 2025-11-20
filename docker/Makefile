@@ -40,18 +40,9 @@ else ifeq ($(PLATFORM),Darwin)
     LINKER_FLAGS   := -dynamiclib -undefined dynamic_lookup -lida
 
 else
-    # Windows - MinGW cross-compile
-    # WARNING: MinGW has ABI incompatibility with MSVC for C++ virtual functions!
-    # Plugins using chooser_t will NOT work correctly.
-    # For proper Windows builds, use Visual Studio 2022+ with MSVC.
-    USE_COMPILER   := x86_64-w64-mingw32-g++
-    COMPILER_FLAGS += -Isdk/src/include
-    COMPILER_FLAGS += -D__NT__ -D__EA64__
-    COMPILER_FLAGS += -Lsdk/src/lib/x64_win_vc_64
-    LINKER_FLAGS   := -static -shared
-    LINKER_FLAGS   += -Wl,--kill-at
-    LINKER_FLAGS   += -l:ida.lib
-    RELEASE_NAME   := vtable64.dll
+    # Windows builds not supported via Docker/MinGW due to ABI incompatibility
+    # Use Clang with MSVC ABI target (clang-cl + lld-link) instead
+    $(error Windows builds require MSVC ABI. Use clang-cl on Windows or cross-compile with xwin)
 endif
 
 .PHONY: all clean

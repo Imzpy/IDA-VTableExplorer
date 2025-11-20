@@ -20,7 +20,11 @@ public:
     };
 
     vtable_chooser_t() : chooser_t(flags_, qnumber(widths_), widths_, header_, "VTable Explorer") {
-        vtables = vtable_detector::find_vtables();
+        try {
+            vtables = vtable_detector::find_vtables();
+        } catch (...) {
+            vtables.clear();
+        }
     }
 
     virtual size_t idaapi get_count() const override {
@@ -33,7 +37,7 @@ public:
         chooser_item_attrs_t *,
         size_t n) const override
     {
-        if (n >= vtables.size())
+        if (cols == nullptr || n >= vtables.size())
             return;
 
         const VTableInfo &vt = vtables[n];

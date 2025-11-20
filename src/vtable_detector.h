@@ -113,6 +113,7 @@ inline std::string extract_class_name(const char* mangled_name, bool& is_windows
 
     if (sym_name.rfind("_ZTV", 0) == 0) {
         const char* name_start = sym_name.c_str() + 4;
+        const char* end = sym_name.c_str() + sym_name.length();
 
         if (name_start[0] == 'N') {
             const char* p = name_start + 1;
@@ -124,6 +125,9 @@ inline std::string extract_class_name(const char* mangled_name, bool& is_windows
                     while (isdigit(*p)) p++;
 
                     if (len > 0 && len < 1024) {
+                        if (p + len > end)
+                            break;
+
                         last_component = std::string(p, len);
                         p += len;
                     }
@@ -141,6 +145,9 @@ inline std::string extract_class_name(const char* mangled_name, bool& is_windows
             while (isdigit(*name_ptr)) name_ptr++;
 
             if (name_len > 0 && name_len < 1024) {
+                // Bounds check to prevent buffer overrun
+                if (name_ptr + name_len > end)
+                    return "";
                 std::string class_name(name_ptr, name_len);
 
                 if (!is_valid_class_name(class_name)) {
