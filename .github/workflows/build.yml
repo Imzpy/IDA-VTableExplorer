@@ -1,11 +1,7 @@
-name: Build IDA Plugin
+name: Build IDA Plugin (MSVC)
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  workflow_dispatch:
+  workflow_dispatch:  # Only manual trigger
 
 jobs:
   build-windows-msvc:
