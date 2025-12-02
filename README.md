@@ -6,6 +6,28 @@ Automatically discover, navigate, and annotate virtual function tables in compil
 
 ---
 
+## Screenshots
+
+<p align="center">
+  <img src="docs/images/vtable-chooser.jpg" alt="VTable Chooser" width="700"/>
+  <br/>
+  <em>Searchable and demangled vtable list with 2000+ entries - browse by class name, address, or type</em>
+</p>
+
+<p align="center">
+  <img src="docs/images/annotated-vtable.jpg" alt="Annotated VTable" width="700"/>
+  <br/>
+  <em>Annotated vtable with function indices and byte offsets for easy hooking</em>
+</p>
+
+<p align="center">
+  <img src="docs/images/annotation-complete.jpg" alt="Annotation Complete" width="350"/>
+  <br/>
+  <em>Quick annotation feedback with function count</em>
+</p>
+
+---
+
 ## Features
 
 **Core Functionality**
