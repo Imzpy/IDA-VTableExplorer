@@ -175,8 +175,7 @@ _ZTV6Player → vtable for Player
 ### Prerequisites
 
 - **Docker** - Installed and running
-- **IDA SDK** - Extract to `sdk/` in project root:
-  - IDA 9.x: `ida-sdk-main v9.x.zip` → rename to `sdk`
+- **IDA SDK** - Extract to `sdk/` in project root
 
 ### Build All Platforms
 
