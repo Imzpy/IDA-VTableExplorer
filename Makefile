@@ -18,7 +18,7 @@ else
     PLATFORM := Windows
 endif
 
-.PHONY: build build-windows build-all build-clean check-docker
+.PHONY: build build-windows build-all build-clean clean check-docker
 
 check-docker:
 	@which docker > /dev/null || (printf "\n[!] Docker is not installed or not in PATH\n\n" && \
@@ -135,6 +135,11 @@ build-all: build build-windows
 	@printf "\n"
 	@printf "    Total: 5 platforms, ready for release!\n"
 	@printf "\n"
+
+clean:
+	@printf "[*] Cleaning build artifacts...\n"
+	@rm -rf release/* obj/*
+	@printf "[+] Cleaned: release/ and obj/\n"
 
 build-clean:
 	@printf "[*] Cleaning Docker artifacts...\n"
